@@ -1,12 +1,19 @@
 let isDrawing = false;
 let x = 0;
 let y = 0;
+let curColor = '#000000'
+
 
 const drawingCanvas = document.getElementById('drawing-canvas');
 const drawingCtx = drawingCanvas.getContext('2d');
 
 const imageCanvas = document.getElementById('image-canvas');
 const imageCtx = imageCanvas.getContext('2d');
+
+//Listening for color changes
+document.getElementById('color-picker').addEventListener('input', function(event) {
+    curColor = event.target.value;
+});
 
 document.getElementById('image-input').addEventListener('change', function(event) {
     const file = event.target.files[0];
@@ -45,6 +52,7 @@ drawingCanvas.addEventListener('mousemove', e => {
     if (isDrawing) {
         const newX = e.offsetX;
         const newY = e.offsetY;
+        drawingCtx.strokeStyle = curColor;
         drawingCtx.beginPath();
         drawingCtx.moveTo(x, y);
         drawingCtx.lineTo(newX, newY);

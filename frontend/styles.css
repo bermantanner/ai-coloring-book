@@ -21,9 +21,13 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1; /* Ensures this canvas is on top */
 }
 
 #drawing-canvas {
-    z-index: 2; /* Drawing canvas above image canvas */
+    z-index: 1; 
+}
+/* z-index in this order so that drawing can be underneath the image */
+#image-canvas {
+    z-index: 2;
+    pointer-events: none; /* this allows clicks to pass through */
 }
