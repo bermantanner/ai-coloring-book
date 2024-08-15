@@ -1,7 +1,8 @@
 let isDrawing = false;
 let x = 0;
 let y = 0;
-let curColor = '#000000'
+let curColor = '#000000';
+let brushSize = 5;
 
 
 const drawingCanvas = document.getElementById('drawing-canvas');
@@ -13,6 +14,12 @@ const imageCtx = imageCanvas.getContext('2d');
 //Listening for color changes
 document.getElementById('color-picker').addEventListener('input', function(event) {
     curColor = event.target.value;
+});
+
+//Listening for brush size
+document.getElementById('brush-size').addEventListener('input', function(event) {
+    brushSize = event.target.value;
+    document.getElementById('brush-size-value').textContent = brushSize; /* Send brush size back to HTML for label */
 });
 
 document.getElementById('image-input').addEventListener('change', function(event) {
@@ -33,7 +40,7 @@ document.getElementById('image-input').addEventListener('change', function(event
 
                 imageCtx.drawImage(img, 0, 0, fixedWidth, fixedHeight);
 
-                console.log("Image loaded with fixed dimensions:", fixedWidth, fixedHeight);
+                //console.log("Image loaded with fixed dimensions:", fixedWidth, fixedHeight);
             };
             img.src = e.target.result;
         };
@@ -45,7 +52,7 @@ drawingCanvas.addEventListener('mousedown', e => {
     isDrawing = true;
     x = e.offsetX;
     y = e.offsetY;
-    console.log("Drawing started at:", x, y);
+    //console.log("Drawing started at:", x, y);
 });
 
 drawingCanvas.addEventListener('mousemove', e => {
@@ -53,11 +60,13 @@ drawingCanvas.addEventListener('mousemove', e => {
         const newX = e.offsetX;
         const newY = e.offsetY;
         drawingCtx.strokeStyle = curColor;
+        drawingCtx.lineWidth = brushSize;
+        drawingCtx.lineCap = 'round';
         drawingCtx.beginPath();
         drawingCtx.moveTo(x, y);
         drawingCtx.lineTo(newX, newY);
         drawingCtx.stroke();
-        console.log("Drawing to:", newX, newY);
+        //console.log("Drawing to:", newX, newY);
         x = newX;
         y = newY;
     }
@@ -65,5 +74,5 @@ drawingCanvas.addEventListener('mousemove', e => {
 
 window.addEventListener('mouseup', () => {
     isDrawing = false;
-    console.log("Drawing ended.");
+    //console.log("Drawing ended.");
 });

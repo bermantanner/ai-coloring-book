@@ -10,6 +10,8 @@
 <body>
     <h1>AI Coloring Book</h1>
     <input type="color" id="color-picker" value="#000000">
+    <label for="brush-size">Brush Size: <span id="brush-size-value">5</span></label>
+    <input type="range" id="brush-size" min="1" max="100" value="5">
     <input type="file" id="image-input" accept="image/*">
     <div id="canvas-container">
         <canvas id="drawing-canvas"></canvas>
