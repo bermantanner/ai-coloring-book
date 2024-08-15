@@ -3,6 +3,7 @@ let x = 0;
 let y = 0;
 let curColor = '#000000';
 let brushSize = 5;
+let drawingStack = []; // This is going to collect drawing history
 
 
 const drawingCanvas = document.getElementById('drawing-canvas');
@@ -40,6 +41,11 @@ document.getElementById('image-input').addEventListener('change', function(event
 
                 imageCtx.drawImage(img, 0, 0, fixedWidth, fixedHeight);
 
+                //Since this is a new image, we clear history
+
+                drawingStack = [];
+                saveDrawingState();
+
                 //console.log("Image loaded with fixed dimensions:", fixedWidth, fixedHeight);
             };
             img.src = e.target.result;
@@ -48,11 +54,30 @@ document.getElementById('image-input').addEventListener('change', function(event
     }
 });
 
+function saveDrawingState() {
+    const canvasData = drawingCanvas.toDataURL();
+    drawingStack.push(canvasData);
+}
+
+document.getElementById('undo-button').addEventListener('click', function() {
+    if (drawingStack.length > 1) {
+        drawingStack.pop();
+        const previousState = drawingStack[drawingStack.length-1];
+        const img = new Image();
+        img.src = previousState;
+        img.onload = function() {
+            drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+            drawingCtx.drawImage(img, 0, 0);
+        }
+    }
+});
+
 drawingCanvas.addEventListener('mousedown', e => {
     isDrawing = true;
     x = e.offsetX;
     y = e.offsetY;
     //console.log("Drawing started at:", x, y);
+    saveDrawingState();
 });
 
 drawingCanvas.addEventListener('mousemove', e => {
