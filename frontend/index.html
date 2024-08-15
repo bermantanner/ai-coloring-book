@@ -4,46 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Coloring Book</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        #image-container {
-            margin-top: 20px;
-        }
-        #uploaded-image {
-            max-width: 100%;
-            max-height: 500px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    <!-- Linking to CSS file. -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>AI Coloring Book</h1>
     <input type="file" id="image-input" accept="image/*">
-    <div id="image-container">
-        <img id="uploaded-image" src="" alt="Your image will appear here">
+    <div id="canvas-container">
+        <canvas id="drawing-canvas"></canvas>
+        <canvas id="image-canvas"></canvas>
     </div>
-    <script>
-        document.getElementById('image-input').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('uploaded-image').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+    
+    <!-- Linking to the Javascript file. -->
+    <script src="script.js"></script>
 </body>
 </html>
