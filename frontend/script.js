@@ -77,7 +77,6 @@ drawingCanvas.addEventListener('mousedown', e => {
     x = e.offsetX;
     y = e.offsetY;
     //console.log("Drawing started at:", x, y);
-    saveDrawingState();
 });
 
 drawingCanvas.addEventListener('mousemove', e => {
@@ -98,6 +97,9 @@ drawingCanvas.addEventListener('mousemove', e => {
 });
 
 window.addEventListener('mouseup', () => {
+    if (isDrawing) {
+        saveDrawingState();
+    }
     isDrawing = false;
-    //console.log("Drawing ended.");
+    console.log("Drawing ended.");
 });
