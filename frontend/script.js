@@ -23,6 +23,7 @@ document.getElementById('brush-size').addEventListener('input', function(event) 
     document.getElementById('brush-size-value').textContent = brushSize; /* Send brush size back to HTML for label */
 });
 
+//Loading file
 document.getElementById('image-input').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
@@ -54,11 +55,13 @@ document.getElementById('image-input').addEventListener('change', function(event
     }
 });
 
+// Saving drawing state
 function saveDrawingState() {
     const canvasData = drawingCanvas.toDataURL();
     drawingStack.push(canvasData);
 }
 
+//Undo functionality
 document.getElementById('undo-button').addEventListener('click', function() {
     if (drawingStack.length > 1) {
         drawingStack.pop();
@@ -72,6 +75,7 @@ document.getElementById('undo-button').addEventListener('click', function() {
     }
 });
 
+//DRAWING! ------------------------
 drawingCanvas.addEventListener('mousedown', e => {
     isDrawing = true;
     x = e.offsetX;
@@ -101,5 +105,25 @@ window.addEventListener('mouseup', () => {
         saveDrawingState();
     }
     isDrawing = false;
-    console.log("Drawing ended.");
+    //console.log("Drawing ended.");
+});
+// ---------------------------------
+
+//Downloading picture
+document.getElementById('download-button').addEventListener('click', function() {
+    // Creating temp canvas to combine the drawing and image canvases
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = drawingCanvas.width;
+    tempCanvas.height = drawingCanvas.height;
+
+    // Drawing both canvases onto temp canvas
+    tempCtx.drawImage(drawingCanvas, 0, 0);
+    tempCtx.drawImage(imageCanvas, 0, 0);
+
+    // Downloading...
+    const link = document.createElement('a');
+    link.href = tempCanvas.toDataURL('image/png');
+    link.download = 'coloring_book_image.png';
+    link.click();
 });
