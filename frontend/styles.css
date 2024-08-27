@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: top;
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
@@ -23,10 +23,11 @@ body {
     left: 0;
 }
 
+/* z-index in this order so that drawing can be underneath the image */
 #drawing-canvas {
     z-index: 1; 
 }
-/* z-index in this order so that drawing can be underneath the image */
+
 #image-canvas {
     z-index: 2;
     pointer-events: none; /* this allows clicks to pass through */

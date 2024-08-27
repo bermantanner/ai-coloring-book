@@ -127,3 +127,44 @@ document.getElementById('download-button').addEventListener('click', function() 
     link.download = 'coloring_book_image.png';
     link.click();
 });
+
+// Sending prompt to backend server!
+document.getElementById('generate-button').addEventListener('click', async () => {
+    // Grabbing user prompt
+    const prompt = document.getElementById('ai-prompt').value;
+
+    // Sending input to backend, HTTP POST request
+    const response = await fetch('http://127.0.0.1:5000/generate-line-drawing', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ prompt: `${prompt}` })
+    });
+
+    // Waiting for API response
+    const data = await response.json();
+    
+    // Loading and displaying image
+    const img = new Image();
+    
+    img.src = data.image_url;
+    img.onload = () => {
+        const drawingCanvas = document.getElementById('drawing-canvas');
+        const drawingCtx = drawingCanvas.getContext('2d');
+
+        const fixedWidth = 500;
+        const fixedHeight = 500;
+
+        drawingCanvas.width = fixedWidth;
+        drawingCanvas.height = fixedHeight;
+
+        imageCanvas.width = fixedWidth;
+        imageCanvas.height = fixedHeight;
+
+        imageCtx.drawImage(img, 0, 0, fixedWidth, fixedHeight); 
+
+        drawingStack = [];
+        saveDrawingState();
+    };
+});
