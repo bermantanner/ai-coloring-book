@@ -5,7 +5,6 @@ let curColor = '#000000';
 let brushSize = 5;
 let drawingStack = []; // This is going to collect drawing history
 
-
 const drawingCanvas = document.getElementById('drawing-canvas');
 const drawingCtx = drawingCanvas.getContext('2d');
 
@@ -142,13 +141,19 @@ document.getElementById('generate-button').addEventListener('click', async () =>
         body: JSON.stringify({ prompt: `${prompt}` })
     });
 
+    if (!response.ok) {
+        console.error("Failed to generate image");
+        return;
+    }
+
     // Waiting for API response
-    const data = await response.json();
+    const blob = await response.blob();
     
     // Loading and displaying image
+    const imgUrl = URL.createObjectURL(blob);
     const img = new Image();
-    
-    img.src = data.image_url;
+    img.src = imgUrl;
+
     img.onload = () => {
         const drawingCanvas = document.getElementById('drawing-canvas');
         const drawingCtx = drawingCanvas.getContext('2d');
@@ -166,5 +171,7 @@ document.getElementById('generate-button').addEventListener('click', async () =>
 
         drawingStack = [];
         saveDrawingState();
+
+        URL.revokeObjectURL(imgUrl);
     };
 });
