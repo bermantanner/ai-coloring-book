@@ -1,23 +1,41 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: top;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-image: url('assets/pixelbackground1.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    position: relative;
+}
+
+#controls-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#controls-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 #canvas-container {
-    margin-top: 20px;
+    width: 500px;
+    height: 500px;
+    border: none;
     position: relative;
 }
 
 #drawing-canvas, #image-canvas {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 0;
     left: 0;
@@ -31,4 +49,29 @@ body {
 #image-canvas {
     z-index: 2;
     pointer-events: none; /* this allows clicks to pass through */
+}
+
+#frame-container {
+    position: relative;
+    width: 580px;  
+    height: 580px; 
+    background-image: url('assets/woodenframe1.png'); 
+    background-size: cover; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none; 
+}
+
+#canvas-background {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background-image: url('assets/canvas2.png'); 
+    background-size: cover; 
+    display: flex;
+    justify-content: center;
+    z-index: 0; 
+    pointer-events: none;
+    border: none; 
 }

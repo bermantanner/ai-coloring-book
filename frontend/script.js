@@ -11,6 +11,12 @@ const drawingCtx = drawingCanvas.getContext('2d');
 const imageCanvas = document.getElementById('image-canvas');
 const imageCtx = imageCanvas.getContext('2d');
 
+//When image is not loaded, canvas cannot be drawn on.
+drawingCanvas.width = 0;
+drawingCanvas.height = 0;
+imageCanvas.width = 0;
+imageCanvas.height = 0;
+
 //Listening for color changes
 document.getElementById('color-picker').addEventListener('input', function(event) {
     curColor = event.target.value;
