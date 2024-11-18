@@ -135,6 +135,10 @@ document.getElementById('download-button').addEventListener('click', function() 
 
 // Sending prompt to backend server!
 document.getElementById('generate-button').addEventListener('click', async () => {
+
+    // Show loading GIF
+    document.getElementById('loading-container').style.display = 'block';
+
     // Grabbing user prompt
     const prompt = document.getElementById('ai-prompt').value;
 
@@ -177,6 +181,9 @@ document.getElementById('generate-button').addEventListener('click', async () =>
 
         drawingStack = [];
         saveDrawingState();
+
+        // Hide loading GIF
+        document.getElementById('loading-container').style.display = 'none';
 
         URL.revokeObjectURL(imgUrl);
     };
