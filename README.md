@@ -1,9 +1,18 @@
 # AI Coloring Book
 
 ## Overview
-This project is an AI-powered coloring book web application. This version of the project currently includes a basic working functionality where users can generate images using an AI model and then color them directly in the browser.
+This project is a simple AI-powered coloring book web application. This version of the project currently includes a basic working functionality where users can generate images using an AI model and then color them directly in the browser.
 
 I used a Flask server as the backend to handle API requests from the frontend and communicate with the OpenAI API for generating line drawings based on user input prompts. The frontend, built using HTML, CSS, and JavaScript, allows users to interact with the AI-generated images by loading and drawing on them directly in the browser. I also integrated real-time image processing with OpenCV to remove the background of generated images.
+
+## DEMONSTRATION
+
+
+https://github.com/user-attachments/assets/86a954dc-2b40-4b31-9fe6-a967676fd228
+
+
+https://github.com/user-attachments/assets/d1e31fba-b677-4f0d-af27-3af4d863432e
+
 
 ## Current Features
 - **Image Generation**: Users can input a prompt, and the backend will communicate with OpenAI's DALL-E 3 to generate a line drawing based on the prompt. The image is then processed to remove the white background and loaded onto the canvas.
